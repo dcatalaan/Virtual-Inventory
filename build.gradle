@@ -1,0 +1,93 @@
+plugins {
+    id 'java'
+    id("xyz.jpenilla.run-paper") version "2.3.1"
+}
+
+group = 'inventory'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        name = "placeholderapi"
+        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+    }
+    maven {
+        name = "jitpack"
+        url = "https://jitpack.io"
+    }
+}
+
+dependencies {
+    compileOnly("org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT")
+    compileOnly("com.github.PlaceholderAPI:PlaceholderAPI:2.11.3")
+    compileOnly(files("libs/itemsadder-3.5.0.jar"))
+}
+
+tasks {
+    runServer {
+        // Configure the Minecraft version for our task.
+        // This is the only required configuration besides applying the plugin.
+        // Your plugin's jar (or shadowJar if present) will be used automatically.
+        minecraftVersion("1.21")
+    }
+}
+
+def targetJavaVersion = 21
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+// Crear el directorio libs si no existe
+task createLibsDir {
+    doLast {
+        mkdir "libs"
+    }
+}
+
+// Tarea para verificar si la integración con ItemsAdder está habilitada
+task checkItemsAdderIntegration {
+    dependsOn createLibsDir
+    doLast {
+        def itemsAdderJar = file('libs/itemsadder-3.5.0.jar')
+        if (!itemsAdderJar.exists()) {
+            println "ItemsAdder JAR no encontrado en la carpeta 'libs'. La integración con ItemsAdder estará deshabilitada."
+            println "Para habilitar la integración con ItemsAdder, coloca el archivo JAR de ItemsAdder en la carpeta 'libs'."
+        } else {
+            println "ItemsAdder JAR encontrado. La integración con ItemsAdder estará habilitada."
+        }
+    }
+}
+
+// Ejecutar la verificación antes de la compilación
+compileJava.dependsOn checkItemsAdderIntegration

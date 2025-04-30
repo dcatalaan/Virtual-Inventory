@@ -1,0 +1,134 @@
+# Configuración del Inventario Virtual
+# Configuración general
+inventario:
+  nombre: "Medallas Virtuales"
+  tamaño: 27  # Puede ser 9, 27, o 54 slots
+  
+  # Configuración de apariencia (ItemsAdder)
+  itemsadder:
+    # Establece a 'true' para usar texturas personalizadas en el menú
+    habilitado: false
+    # ID del ítem personalizado para el fondo del menú (ej: "custom_gui_background")
+    fondo_menu: "custom_gui_background"
+    # ID del ítem personalizado para representar los slots vacíos (ej: "custom_gui_empty_slot")
+    slot_vacio: "custom_gui_empty_slot"
+
+# Lista de ítems que serán capturados por el inventario virtual
+items:
+  # Items de Minecraft vanilla
+  - DIAMOND
+  - EMERALD
+  - GOLD_INGOT
+  - IRON_INGOT
+  
+  # Medallas de Cobblemon
+  - cobblemon-progress-items:rain_badge
+  - cobblemon-progress-items:balance_badge
+  - cobblemon-progress-items:heat_badge
+  - cobblemon-progress-items:dynamo_badge
+  - cobblemon-progress-items:boulder_badge
+  - cobblemon-progress-items:relic_badge
+  - cobblemon-progress-items:mind_badge
+  - cobblemon-progress-items:forest_badge
+  
+  # Items de ItemsAdder (ejemplos)
+  - itemsadder:ruby
+  - itemsadder:sapphire
+  
+  # Puedes añadir más ítems aquí
+
+# Mensaje cuando un ítem es añadido al inventario virtual
+mensajes:
+  item_añadido: "&a¡Has conseguido un nuevo ítem para tu colección de medallas!"
+  inventario_abierto: "&6Abriendo tu colección de medallas virtuales..." 
+
+# Configuración avanzada
+debug: true  # Establece a 'true' para ver información de depuración en la consola
+
+# Ayuda para la solución de problemas
+# 
+# Si tienes problemas con ítems que no se detectan correctamente:
+# 1. Establece debug: true para ver más información en la consola
+# 2. Asegúrate de escribir el ID exacto del ítem
+# 3. Para ítems con namespaces que contienen guiones como "cobblemon-progress-items", 
+#    escríbelos exactamente como aparecen en el juego 
+
+# Configuración de Virtual Inventory
+
+# Configuración de recolección automática
+auto-collect:
+  enabled: true
+  # Mensaje cuando un ítem es recogido automáticamente
+  message: "&aHas añadido &6%item% &aa tu inventario virtual!"
+  # ¿Mostrar mensaje cuando se recoge un ítem?
+  show-message: true
+  # Sonido al recoger (lista de sonidos: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html)
+  sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+  # Volumen del sonido (0.0 - 1.0)
+  volume: 0.5
+  # Pitch del sonido (0.0 - 2.0)
+  pitch: 1.0
+
+# Configuración del inventario
+inventory:
+  # Título del inventario
+  title: "&6&lInventario Virtual"
+  # Número de filas (1-6)
+  rows: 6
+  # Tipo de inventario (CHEST, HOPPER, DISPENSER, etc.)
+  type: "CHEST"
+  # Ordenar elementos por nombre
+  sort-by-name: true
+  # Usar los nombres personalizados de los ítems en el inventario
+  use-custom-names: true
+
+# Lista de elementos que se pueden recoger
+collectible-items:
+  - "minecraft:diamond"
+  - "minecraft:emerald"
+  - "minecraft:gold_ingot"
+  - "minecraft:iron_ingot"
+  - "minecraft:netherite_ingot"
+  - "cobblemon:poke_ball"
+  - "cobblemon:great_ball"
+  - "cobblemon:ultra_ball"
+  - "cobblemon:master_ball"
+  - "cobblemon-progress-items:boulder_badge"
+  - "cobblemon-progress-items:cascade_badge"
+  - "cobblemon-progress-items:thunder_badge"
+  - "cobblemon-progress-items:rainbow_badge"
+  - "cobblemon-progress-items:soul_badge"
+  - "cobblemon-progress-items:marsh_badge"
+  - "cobblemon-progress-items:volcano_badge"
+  - "cobblemon-progress-items:earth_badge"
+
+# Compatibilidad con PlaceholderAPI
+placeholders:
+  enabled: true
+  # Formato: "item_id: display_name"
+  item-names:
+    "minecraft:diamond": "Diamante"
+    "minecraft:emerald": "Esmeralda"
+    "minecraft:gold_ingot": "Lingote de Oro"
+    "minecraft:iron_ingot": "Lingote de Hierro"
+    "minecraft:netherite_ingot": "Lingote de Netherita"
+    "cobblemon:poke_ball": "Poké Ball"
+    "cobblemon:great_ball": "Super Ball"
+    "cobblemon:ultra_ball": "Ultra Ball"
+    "cobblemon:master_ball": "Master Ball"
+    "cobblemon-progress-items:boulder_badge": "Medalla Roca"
+    "cobblemon-progress-items:cascade_badge": "Medalla Cascada"
+    "cobblemon-progress-items:thunder_badge": "Medalla Trueno"
+    "cobblemon-progress-items:rainbow_badge": "Medalla Arcoíris"
+    "cobblemon-progress-items:soul_badge": "Medalla Alma"
+    "cobblemon-progress-items:marsh_badge": "Medalla Pantano"
+    "cobblemon-progress-items:volcano_badge": "Medalla Volcán"
+    "cobblemon-progress-items:earth_badge": "Medalla Tierra"
+
+# Configuración para ItemsAdder
+itemsadder:
+  enabled: true
+  items:
+    # Formato: "namespace:id: cantidad"
+    "example:ruby": 1
+    "example:sapphire": 1 

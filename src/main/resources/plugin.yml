@@ -1,0 +1,17 @@
+name: virtualInventory
+version: '1.0-SNAPSHOT'
+main: inventory.virtualInventory.VirtualInventory
+api-version: '1.21'
+authors: [ Dryph ]
+description: Plugin de Inventario virtual para Kryuk
+softdepend: [PlaceholderAPI, ItemsAdder]
+
+commands:
+  medallas:
+    description: Abre tu inventario virtual de medallas
+    usage: /medallas [jugador]
+    aliases: [medallasvirtuales, vm]
+  mvs:
+    description: Comandos administrativos del sistema de Medallas Virtuales
+    usage: /mvs reload
+    aliases: [medallassystem, virtualsystem]
