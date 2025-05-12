@@ -737,4 +737,38 @@ public class VirtualInventoryManager {
     public List<String> getTrackingItems() {
         return trackingItems;
     }
+    
+    /**
+     * Limpia todos los ítems del inventario virtual de un jugador
+     * @param playerName Nombre del jugador
+     * @return true si la operación fue exitosa
+     */
+    public boolean clearPlayerItems(String playerName) {
+        // Buscar el jugador (online primero)
+        Player onlinePlayer = Bukkit.getPlayer(playerName);
+        UUID playerUUID = null;
+        
+        if (onlinePlayer != null) {
+            playerUUID = onlinePlayer.getUniqueId();
+        } else {
+            // Buscar entre jugadores offline
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
+            if (offlinePlayer.hasPlayedBefore()) {
+                playerUUID = offlinePlayer.getUniqueId();
+            }
+        }
+        
+        if (playerUUID == null) {
+            return false; // No se encontró al jugador
+        }
+        
+        // Limpiar el inventario virtual
+        if (playerItems.containsKey(playerUUID)) {
+            playerItems.get(playerUUID).clear();
+            savePlayerData(playerUUID);
+            return true;
+        }
+        
+        return false;
+    }
 } 

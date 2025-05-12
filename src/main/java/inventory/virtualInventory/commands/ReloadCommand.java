@@ -36,6 +36,7 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
             // Verificar permiso
             if (!sender.hasPermission("virtualinventory.reload")) {
                 sender.sendMessage(ChatColor.RED + "No tienes permiso para ejecutar este comando.");
+                sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
                 return true;
             }
             
@@ -47,6 +48,8 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
             
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', 
                     "&a¡La configuración de &6Inventario Virtual &ase ha recargado correctamente!"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', 
+                    "&aThe &6Virtual Inventory &aconfiguration has been reloaded successfully!"));
         } 
         else if (subCommand.equals("clear")) {
             return clearCommand.execute(sender, args);
@@ -56,16 +59,24 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
         } 
         else {
             sender.sendMessage(ChatColor.RED + "Subcomando desconocido. Usa /mvs help para ver los comandos disponibles.");
+            sender.sendMessage(ChatColor.RED + "Unknown subcommand. Use /mvs help to see available commands.");
         }
         
         return true;
     }
     
     private void sendHelp(CommandSender sender) {
+        // Español
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6=== &eComandos del Sistema de Medallas Virtuales &6==="));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/mvs reload &7- &fRecarga la configuración del plugin"));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/mvs clear <jugador> &7- &fElimina todos los ítems del inventario virtual de un jugador"));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/mvs help &7- &fMuestra esta ayuda"));
+        
+        // Inglés
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6=== &eVirtual Badge System Commands &6==="));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/vms reload &7- &fReloads the plugin configuration"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/vms clear <player> &7- &fRemoves all items from a player's virtual inventory"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/vms help &7- &fShows this help"));
     }
     
     @Override

@@ -33,6 +33,7 @@ public class ClearCommand implements Listener {
     public boolean execute(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Este comando solo puede ser ejecutado por un jugador.");
+            sender.sendMessage(ChatColor.RED + "This command can only be executed by a player.");
             return true;
         }
         
@@ -41,12 +42,14 @@ public class ClearCommand implements Listener {
         // Verificar permiso
         if (!player.hasPermission("virtualinventory.clear")) {
             player.sendMessage(ChatColor.RED + "No tienes permiso para ejecutar este comando.");
+            player.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
             return true;
         }
         
         // Verificar si se especificó un jugador
         if (args.length < 2) {
             player.sendMessage(ChatColor.RED + "Uso: /mvs clear <nombre>");
+            player.sendMessage(ChatColor.RED + "Usage: /vms clear <name>");
             return true;
         }
         
@@ -67,6 +70,7 @@ public class ClearCommand implements Listener {
             
             if (!offlinePlayerExists) {
                 player.sendMessage(ChatColor.RED + "No se encontró al jugador " + targetName);
+                player.sendMessage(ChatColor.RED + "Player " + targetName + " not found");
                 return true;
             }
         }
@@ -74,13 +78,21 @@ public class ClearCommand implements Listener {
         // Guardar la confirmación pendiente
         pendingConfirmations.put(player.getUniqueId(), new PendingConfirmation(targetName, System.currentTimeMillis()));
         
-        // Solicitar confirmación
+        // Solicitar confirmación en español
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                 "&c⚠ &e¡Estás a punto de eliminar todos los ítems de la colección de &6" + targetName + "&e!"));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                 "&ePara confirmar, escribe el nombre del jugador en el chat: &6" + targetName));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                 "&7La confirmación expirará en 30 segundos. Escribe &ccancelar&7 para anular la operación."));
+        
+        // Solicitar confirmación en inglés
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                "&c⚠ &eYou are about to delete all items from &6" + targetName + "&e's collection!"));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                "&eTo confirm, type the player's name in chat: &6" + targetName));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                "&7The confirmation will expire in 30 seconds. Type &ccancel&7 to abort."));
         
         return true;
     }
@@ -103,15 +115,18 @@ public class ClearCommand implements Listener {
         // Verificar si ha expirado (30 segundos)
         if (System.currentTimeMillis() - confirmation.timestamp > 30000) {
             player.sendMessage(ChatColor.RED + "La confirmación ha expirado.");
+            player.sendMessage(ChatColor.RED + "The confirmation has expired.");
             return;
         }
         
         String message = event.getMessage();
         
         // Verificar si quiere cancelar
-        if (message.equalsIgnoreCase("cancelar")) {
+        if (message.equalsIgnoreCase("cancelar") || message.equalsIgnoreCase("cancel")) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "&aLa operación ha sido cancelada."));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    "&aThe operation has been cancelled."));
             return;
         }
         
@@ -119,6 +134,8 @@ public class ClearCommand implements Listener {
         if (!message.equalsIgnoreCase(confirmation.playerName)) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "&cEl nombre no coincide. Operación cancelada."));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    "&cThe name doesn't match. Operation cancelled."));
             return;
         }
         
@@ -129,9 +146,13 @@ public class ClearCommand implements Listener {
             if (success) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "&a¡Se han eliminado todos los ítems de la colección de &e" + confirmation.playerName + "&a!"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        "&aAll items have been removed from &e" + confirmation.playerName + "&a's collection!"));
             } else {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "&cHa ocurrido un error al limpiar la colección de &e" + confirmation.playerName + "&c."));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        "&cAn error occurred while clearing &e" + confirmation.playerName + "&c's collection."));
             }
         });
     }

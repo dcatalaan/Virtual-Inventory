@@ -25,6 +25,7 @@ public class MedallasCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Este comando solo puede ser ejecutado por un jugador.");
+            sender.sendMessage(ChatColor.RED + "This command can only be executed by a player.");
             return true;
         }
         
@@ -47,6 +48,7 @@ public class MedallasCommand implements CommandExecutor, TabCompleter {
             }
             
             player.sendMessage(ChatColor.RED + "No se encontró al jugador " + targetName);
+            player.sendMessage(ChatColor.RED + "Player " + targetName + " not found");
             return true;
         }
         

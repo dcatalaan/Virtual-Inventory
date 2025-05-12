@@ -10,8 +10,8 @@ commands:
   medallas:
     description: Abre tu inventario virtual de medallas
     usage: /medallas [jugador]
-    aliases: [medallasvirtuales, vm]
+    aliases: [medallasvirtuales, vm, medals, virtualmedals, badge, badges]
   mvs:
     description: Comandos administrativos del sistema de Medallas Virtuales
     usage: /mvs reload
-    aliases: [medallassystem, virtualsystem]
+    aliases: [medallassystem, virtualsystem, vms, virtualbadgesystem, badgesystem]
