@@ -137,4 +137,54 @@ Si tienes problemas con ítems que no se detectan correctamente:
 
 ## Soporte
 
-Si tienes algún problema o sugerencia, por favor, crea un issue en el repositorio del proyecto. 
+Si tienes algún problema o sugerencia, por favor, crea un issue en el repositorio del proyecto.
+
+## English Section
+
+### Virtual Inventory System
+
+A Minecraft plugin that allows players to collect and display virtual items (medals, badges, etc.) in a special inventory interface.
+
+#### Features
+
+- Virtual inventory system for collecting and displaying items
+- Support for vanilla Minecraft items and custom items from ItemsAdder
+- Special integration with Cobblemon badges
+- Customizable GUI with ItemsAdder support
+- Offline player data management
+- PlaceholderAPI integration
+- Administrative commands for inventory management
+
+#### Commands
+
+- `/medallas` or `/vm` - Opens your virtual inventory
+- `/medallas <player>` - Opens another player's virtual inventory
+- `/mvs reload` - Reloads the plugin configuration
+- `/mvs clear <player>` - Clears a player's virtual inventory
+- `/mvs help` - Shows available commands
+
+#### Permissions
+
+- `virtualinventory.reload` - Allows reloading the plugin configuration
+- `virtualinventory.clear` - Allows clearing a player's virtual inventory
+
+#### Dependencies
+
+- PlaceholderAPI (optional)
+- ItemsAdder (optional)
+
+#### Configuration
+
+The plugin can be configured through the `config.yml` file, where you can set:
+- Inventory name and size
+- Items to track
+- GUI customization options
+- Integration settings
+- Messages and notifications
+
+#### Building
+
+To build the plugin:
+1. Clone the repository
+2. Run `./gradlew build`
+3. Find the compiled plugin in `build/libs/` 
