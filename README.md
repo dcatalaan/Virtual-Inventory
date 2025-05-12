@@ -14,6 +14,7 @@ Plugin para Minecraft que crea un inventario virtual donde se almacenan automát
 - Capacidad para ver el inventario virtual de otros jugadores
 - Integración con PlaceholderAPI - cada ítem configurado genera automáticamente su propio placeholder
 - Persistencia de datos (los ítems se guardan incluso cuando el jugador se desconecta)
+- **Soporte bilingüe** - Comandos y mensajes disponibles tanto en español como en inglés
 
 ## Instalación
 
@@ -75,9 +76,11 @@ debug: false  # Establece a 'true' para ver información de depuración en la co
 
 - `/medallas` - Abre tu propio inventario virtual de medallas
 - `/medallas <jugador>` - Abre el inventario virtual de medallas de otro jugador
-  - Alias: `/medallasvirtuales`, `/vm`
+  - Alias en español: `/medallasvirtuales`, `/vm`
+  - **Alias en inglés: `/medals`, `/virtualmedals`, `/badge`, `/badges`**
 - `/mvs reload` - Recarga la configuración del plugin (útil después de editar config.yml)
-  - Alias: `/medallassystem reload`, `/virtualsystem reload`
+  - Alias en español: `/medallassystem reload`, `/virtualsystem reload`
+  - **Alias en inglés: `/vms reload`, `/virtualbadgesystem reload`, `/badgesystem reload`**
 - `/mvs help` - Muestra la ayuda con todos los comandos disponibles
 
 ## Guía para IDs de ítems
@@ -157,6 +160,7 @@ A Minecraft plugin that creates a virtual inventory where special items like med
 - Ability to view other players' virtual inventories
 - PlaceholderAPI integration - each configured item automatically generates its own placeholder
 - Data persistence (items are saved even when the player disconnects)
+- **Bilingual support** - Commands and messages available in both Spanish and English
 
 ## Installation
 
@@ -217,10 +221,12 @@ debug: false  # Set to 'true' to see debugging information in the console
 ## Commands
 
 - `/medallas` - Opens your own virtual medal inventory
+  - **English aliases: `/medals`, `/virtualmedals`, `/badge`, `/badges`**
+  - Spanish aliases: `/medallasvirtuales`, `/vm`
 - `/medallas <player>` - Opens another player's virtual medal inventory
-  - Aliases: `/medallasvirtuales`, `/vm`
 - `/mvs reload` - Reloads the plugin configuration (useful after editing config.yml)
-  - Aliases: `/medallassystem reload`, `/virtualsystem reload`
+  - **English aliases: `/vms reload`, `/virtualbadgesystem reload`, `/badgesystem reload`**
+  - Spanish aliases: `/medallassystem reload`, `/virtualsystem reload`
 - `/mvs help` - Shows help with all available commands
 
 ## Item ID Guide
