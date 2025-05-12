@@ -15,10 +15,12 @@ import java.util.stream.Collectors;
 public class ReloadCommand implements CommandExecutor, TabCompleter {
 
     private final VirtualInventory plugin;
-    private final List<String> subCommands = Arrays.asList("reload", "help");
+    private final List<String> subCommands = Arrays.asList("reload", "help", "clear");
+    private final ClearCommand clearCommand;
     
     public ReloadCommand(VirtualInventory plugin) {
         this.plugin = plugin;
+        this.clearCommand = new ClearCommand(plugin);
     }
     
     @Override
@@ -31,6 +33,12 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
         String subCommand = args[0].toLowerCase();
         
         if (subCommand.equals("reload")) {
+            // Verificar permiso
+            if (!sender.hasPermission("virtualinventory.reload")) {
+                sender.sendMessage(ChatColor.RED + "No tienes permiso para ejecutar este comando.");
+                return true;
+            }
+            
             // Recargar la configuración
             plugin.reloadConfig();
             
@@ -40,6 +48,9 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', 
                     "&a¡La configuración de &6Inventario Virtual &ase ha recargado correctamente!"));
         } 
+        else if (subCommand.equals("clear")) {
+            return clearCommand.execute(sender, args);
+        }
         else if (subCommand.equals("help")) {
             sendHelp(sender);
         } 
@@ -53,6 +64,7 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
     private void sendHelp(CommandSender sender) {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6=== &eComandos del Sistema de Medallas Virtuales &6==="));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/mvs reload &7- &fRecarga la configuración del plugin"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/mvs clear <jugador> &7- &fElimina todos los ítems del inventario virtual de un jugador"));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e/mvs help &7- &fMuestra esta ayuda"));
     }
     
@@ -62,6 +74,19 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
             return subCommands.stream()
                     .filter(sc -> sc.startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
+        }
+        
+        if (args.length == 2 && args[0].equalsIgnoreCase("clear")) {
+            String partialName = args[1].toLowerCase();
+            List<String> playerNames = plugin.getServer().getOnlinePlayers().stream()
+                    .map(player -> player.getName())
+                    .filter(name -> name.toLowerCase().startsWith(partialName))
+                    .collect(Collectors.toList());
+            
+            // También añadir jugadores offline que tengan datos guardados
+            playerNames.addAll(plugin.getVirtualInventoryManager().getOfflinePlayerNames(partialName));
+            
+            return playerNames;
         }
         
         return new ArrayList<>();
